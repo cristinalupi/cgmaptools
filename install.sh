@@ -20,7 +20,10 @@ cd include
   echo 'building samtools'
   cd samtools-*/
   make clean || true
-  make CC="$CC" CFLAGS="-g -Wall -O2 -fcommon -I$ZLIB_INC -I${CONDA_PREFIX}/include" LDFLAGS="-L$ZLIB_INC -L${CONDA_PREFIX}/lib"
+  make libbam.a CC="$CC" \
+    CFLAGS="-g -Wall -O2 -fcommon -I$ZLIB_INC -I${CONDA_PREFIX}/include" \
+    DFLAGS="-D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -D_USE_KNETFILE -D_CURSES_LIB=0" \
+    LIBCURSES=""
   SAMTOOLS_INC="$(pwd)"
   cd ..
 cd ..
