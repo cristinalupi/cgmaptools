@@ -4,6 +4,7 @@ set -e
 # Use Conda compilers if active, otherwise fallback to system gcc/g++
 CC="${CC:-gcc}"
 CXX="${CXX:-g++}"
+CFLAGS_C="-std=gnu89 -Wno-incompatible-pointer-types"
 
 rm -rf bin/
 mkdir -p bin/
@@ -42,25 +43,25 @@ cd src/
   $CXX CGmapMethInFragReg.cpp -o ../bin/CGmapMethInFragReg
 
   echo 'building CGmapFromBAM'
-  $CC -o ../bin/CGmapFromBAM CGmapFromBAM.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/CGmapFromBAM CGmapFromBAM.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 
   echo 'building CGmapToCGbz'
-  $CC -o ../bin/CGmapToCGbz CGmapToCGbz.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/CGmapToCGbz CGmapToCGbz.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 
   echo 'building CGbzToCGmap'
-  $CC -o ../bin/CGbzToCGmap CGbzToCGmap.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/CGbzToCGmap CGbzToCGmap.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 
   echo 'building ATCGmapToATCGbz'
-  $CC -o ../bin/ATCGmapToATCGbz ATCGmapToATCGbz.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/ATCGmapToATCGbz ATCGmapToATCGbz.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 
   echo 'building ATCGbzToATCGmap'
-  $CC -o ../bin/ATCGbzToATCGmap ATCGbzToATCGmap.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/ATCGbzToATCGmap ATCGbzToATCGmap.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 
   echo 'building CGbzFetchRegion'
-  $CC -o ../bin/CGbzFetchRegion CGbzFetchRegion.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/CGbzFetchRegion CGbzFetchRegion.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 
   echo 'building ATCGbzFetchRegion'
-  $CC -o ../bin/ATCGbzFetchRegion ATCGbzFetchRegion.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
+  $CC $CFLAGS_C -o ../bin/ATCGbzFetchRegion ATCGbzFetchRegion.c -I"$ZLIB_INC" -I"$SAMTOOLS_INC" -L"$ZLIB_INC" -L"$SAMTOOLS_INC" -lbam -lz
 cd ..
 
 cd bin
@@ -71,3 +72,7 @@ cd bin
     chmod +x "$pn"
   done
 cd ..
+
+echo ""
+echo "CGmapTools installation finished."
+echo ""
